@@ -1,0 +1,6 @@
+@CamelBackend_HostAddress = http://localhost:5276
+
+GET {{CamelBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

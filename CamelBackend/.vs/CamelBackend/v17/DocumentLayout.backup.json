@@ -1,0 +1,138 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|c:\\users\\lacik\\desktop\\repos\\apply-frontend-backend\\camelbackend\\camelbackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|solutionrelative:camelbackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|c:\\users\\lacik\\desktop\\repos\\apply-frontend-backend\\camelbackend\\camelbackend\\controllers\\camelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|solutionrelative:camelbackend\\controllers\\camelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|c:\\users\\lacik\\desktop\\repos\\apply-frontend-backend\\camelbackend\\camelbackend\\services\\camelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|solutionrelative:camelbackend\\services\\camelservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|c:\\users\\lacik\\desktop\\repos\\apply-frontend-backend\\camelbackend\\camelbackend\\repositories\\camelrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|solutionrelative:camelbackend\\repositories\\camelrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|c:\\users\\lacik\\desktop\\repos\\apply-frontend-backend\\camelbackend\\camelbackend\\db\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|solutionrelative:camelbackend\\db\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|c:\\users\\lacik\\desktop\\repos\\apply-frontend-backend\\camelbackend\\camelbackend\\resources\\sharedresource.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}",
+      "RelativeMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|solutionrelative:camelbackend\\resources\\sharedresource.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|c:\\users\\lacik\\desktop\\repos\\apply-frontend-backend\\camelbackend\\camelbackend\\mapping\\camelprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AF1CB05F-6082-4337-919C-09A8560E4EC8}|CamelBackend\\CamelBackend.csproj|solutionrelative:camelbackend\\mapping\\camelprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CamelController.cs",
+              "DocumentMoniker": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Controllers\\CamelController.cs",
+              "RelativeDocumentMoniker": "CamelBackend\\Controllers\\CamelController.cs",
+              "ToolTip": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Controllers\\CamelController.cs",
+              "RelativeToolTip": "CamelBackend\\Controllers\\CamelController.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAmwF8AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-12T17:51:23.415Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Program.cs",
+              "RelativeDocumentMoniker": "CamelBackend\\Program.cs",
+              "ToolTip": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Program.cs*",
+              "RelativeToolTip": "CamelBackend\\Program.cs*",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAAwFAAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-12T17:22:21.937Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SharedResource.resx",
+              "DocumentMoniker": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Resources\\SharedResource.resx",
+              "RelativeDocumentMoniker": "CamelBackend\\Resources\\SharedResource.resx",
+              "ToolTip": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Resources\\SharedResource.resx",
+              "RelativeToolTip": "CamelBackend\\Resources\\SharedResource.resx",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2026-02-12T17:50:05.014Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CamelRepository.cs",
+              "DocumentMoniker": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Repositories\\CamelRepository.cs",
+              "RelativeDocumentMoniker": "CamelBackend\\Repositories\\CamelRepository.cs",
+              "ToolTip": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Repositories\\CamelRepository.cs",
+              "RelativeToolTip": "CamelBackend\\Repositories\\CamelRepository.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-12T17:37:16.43Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CamelService.cs",
+              "DocumentMoniker": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Services\\CamelService.cs",
+              "RelativeDocumentMoniker": "CamelBackend\\Services\\CamelService.cs",
+              "ToolTip": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Services\\CamelService.cs",
+              "RelativeToolTip": "CamelBackend\\Services\\CamelService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-12T17:36:50.765Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CamelProfile.cs",
+              "DocumentMoniker": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Mapping\\CamelProfile.cs",
+              "RelativeDocumentMoniker": "CamelBackend\\Mapping\\CamelProfile.cs",
+              "ToolTip": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Mapping\\CamelProfile.cs",
+              "RelativeToolTip": "CamelBackend\\Mapping\\CamelProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-12T17:25:46.128Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\DB\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "CamelBackend\\DB\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\DB\\AppDbContext.cs",
+              "RelativeToolTip": "CamelBackend\\DB\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-12T17:22:56.781Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
