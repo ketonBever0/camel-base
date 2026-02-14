@@ -1,0 +1,26 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Camel } from '@models/camel';
+import { catchError, Observable, of, throwError } from 'rxjs';
+import { env } from 'src/env/env';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CamelService {
+  constructor(private readonly http: HttpClient) {}
+
+  private readonly camelUrl = env.apiUrl + 'camels/';
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    return throwError(() => error);
+  }
+
+  getCamels(): Observable<Camel[]> {
+    return this.http.get<Camel[]>(this.camelUrl).pipe(catchError(this.handleError));
+  }
+
+  addCamel(camel: Camel): Observable<Camel> {
+    return this.http.post<Camel>(this.camelUrl, camel).pipe(catchError(this.handleError));
+  }
+}
