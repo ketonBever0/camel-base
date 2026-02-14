@@ -1,5 +1,13 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit, signal, Signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  signal,
+  Signal,
+  TemplateRef,
+  ViewChild,
+  WritableSignal,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -10,6 +18,7 @@ import {
 import { CamelService } from '@app/core/services/camel.service';
 import { Camel } from '@models/camel';
 import { Observable } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-list-page',
@@ -21,32 +30,48 @@ export class ListPage implements OnInit {
   constructor(
     protected readonly camelService: CamelService,
     protected readonly formBuilder: FormBuilder,
-  ) {}
+    private readonly modalService: NgbModal,
+  ) {
+    this.camelForm = formBuilder.group({
+      name: ['', Validators.required],
+      color: [''],
+      humpCount: [null],
+      lastFedDate: [new Date().toISOString().split('T')[0]],
+      lastFedTime: [new Date().toISOString().split('T')[1]],
+    });
+  }
 
   ngOnInit() {
     this.camels$ = this.camelService.getCamels();
   }
 
-  nameTb = new FormControl('');
-  colorTb = new FormControl('');
-  humpCountOption = new FormControl<1 | 2 | null>(null);
-  lastFedDate = new FormControl();
+  @ViewChild('camelModal') camelModal!: TemplateRef<any>;
+
+  // camelsPending = signal(true);
+
+  camelForm: FormGroup;
 
   camels$!: Observable<Camel[]>;
 
   editingId: WritableSignal<number | null> = signal(null);
 
-  startEditing(c: Camel) {
-    this.editingId.set(c.id);
+  startEditing(c: Camel | null = null) {
+    if (c) this.editingId.set(c.id);
 
-    this.nameTb.patchValue(c.name);
-    this.colorTb.patchValue(c.color);
-    this.humpCountOption.patchValue(c.humpCount);
-    this.lastFedDate.patchValue(
-      c.lastFed
-        ? new Date(c.lastFed).toISOString().split('T')[0]
-        : new Date().toISOString().split('T')[0],
-    );
+    this.camelForm.patchValue({
+      name: c ? c.name : '',
+      color: c ? c.color : '',
+      humpCount: c ? c.humpCount : null,
+      lastFedDate:
+        c && c?.lastFed
+          ? new Date(c.lastFed).toISOString().split('T')[0]
+          : new Date().toISOString().split('T')[0],
+      lastFedTime:
+        c && c?.lastFed
+          ? new Date(c.lastFed).toISOString().split('T')[1].split('.')[0]
+          : new Date().toISOString().split('T')[1].split('.')[0],
+    });
+    this.openModal();
   }
 
   stopEditing() {
@@ -55,5 +80,9 @@ export class ListPage implements OnInit {
 
   submitEdit() {
     this.stopEditing();
+  }
+
+  openModal() {
+    this.modalService.open(this.camelModal);
   }
 }
