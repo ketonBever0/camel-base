@@ -1,1 +1,30 @@
-<p>list-page works!</p>
+<h2>Camels</h2>
+<form>
+  <div></div>
+
+  <table class="table table-stripped">
+    <thead>
+      <tr>
+        <!-- <th scope="col">#</th> -->
+        <th scope="col" sortable="name">Name</th>
+        <th scope="col" sortable="color">Color</th>
+        <th scope="col">Humps Count</th>
+        <th scope="col" sortable="lastFed">Last Fed</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (c of camels$ | async; track c.id) {
+        <tr>
+          <td scope="row">{{ c.name }}</td>
+          <td scope="row">{{ c.color || 'Not provided' }}</td>
+          <td scope="row">{{ c.humpCount }}</td>
+          <td scope="row">{{ c.lastFed || 'Never' }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4" style="text-align: center">No camels.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</form>

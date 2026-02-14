@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
+import { ListPage } from './pages/list-page/list-page';
 
 export const camelRoutes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./pages/list-page/list-page').then((m) => m.ListPage),
+    component: ListPage,
   },
 ];
