@@ -1,48 +1,54 @@
-<h2>Camels</h2>
+<div id="title">
+  <h2>Camels</h2>
+</div>
 
-<form [formGroup]="editForm" (ngSubmit)="submitEdit()">
-  <table class="table table-stripped">
-    <thead>
+<table class="table table-stripped">
+  <thead>
+    <tr>
+      <!-- <th scope="col">#</th> -->
+      <th scope="col" sortable="name">Name</th>
+      <th scope="col" sortable="color">Color</th>
+      <th scope="col">Humps Count</th>
+      <th scope="col" sortable="lastFed">Last Fed</th>
+      <th scope="col" id="add-container"><button class="btn btn-success">Add</button></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (c of camels$ | async; track c.id) {
       <tr>
-        <!-- <th scope="col">#</th> -->
-        <th scope="col" sortable="name">Name</th>
-        <th scope="col" sortable="color">Color</th>
-        <th scope="col">Humps Count</th>
-        <th scope="col" sortable="lastFed">Last Fed</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (c of camels$ | async; track c.id) {
-        <tr>
-          @if (editingId() == c.id) {
-            <td><input class="form-control" formControlName="name" /></td>
-            <td><input class="form-control" formControlName="color" /></td>
-            <td><input class="form-control" formControlName="humpCount" type="number" /></td>
-            <td><input class="form-control" formControlName="lastFed" type="date" /></td>
-          } @else {
-            <td scope="row">{{ c.name }}</td>
-            <td scope="row">{{ c.color || 'Not provided' }}</td>
-            <td scope="row">{{ c.humpCount }}</td>
-            <td scope="row">{{ c.lastFed || 'Never' }}</td>
-          }
+        @if (editingId() == c.id) {
+          <td><input [formControl]="nameTb" /></td>
+          <td><input [formControl]="colorTb" /></td>
           <td>
+            <select [formControl]="humpCountOption">
+              <option [value]="null" disabled>Choose...</option>
+              <option [value]="1">1</option>
+              <option [value]="2">2</option>
+            </select>
+          </td>
+          <td><input [formControl]="lastFedDate" type="date" /></td>
+        } @else {
+          <td scope="row">{{ c.name }}</td>
+          <td scope="row">{{ c.color || 'Not provided' }}</td>
+          <td scope="row">{{ c.humpCount }}</td>
+          <td scope="row">{{ c.lastFed || 'Never' }}</td>
+        }
+        <td>
+          <div class="camel-actions" [hidden]="editingId() != null && editingId() != c.id">
             @if (editingId() == c.id) {
-              <button type="submit" class="btn btn-success" (click)="submitEdit()">Edit</button>
+              <button type="submit" class="btn btn-success" (click)="submitEdit()">Save</button>
               <button type="reset" class="btn btn-danger" (click)="stopEditing()">Cancel</button>
             } @else {
-              <div class="camel-actions" [hidden]="editingId() != null && editingId() != c.id">
-                <button class="btn btn-warning" (click)="startEditing(c.id)">Edit</button>
-                <button class="btn btn-danger">Delete</button>
-              </div>
+              <button class="btn btn-warning" (click)="startEditing(c)">Edit</button>
+              <button class="btn btn-danger">Delete</button>
             }
-          </td>
-        </tr>
-      } @empty {
-        <tr>
-          <td colspan="4" style="text-align: center">No camels.</td>
-        </tr>
-      }
-    </tbody>
-  </table>
-</form>
+          </div>
+        </td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="4" style="text-align: center">No camels.</td>
+      </tr>
+    }
+  </tbody>
+</table>
