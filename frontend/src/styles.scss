@@ -5,10 +5,6 @@
 // custom components at https://material.angular.dev/guide/theming
 
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@use 'bootstrap/scss/bootstrap';
 
 /* You can add global styles to this file, and also import other style files */
-@mixin flex-layout {
-  display: flex;
-  justify-items: center;
-}

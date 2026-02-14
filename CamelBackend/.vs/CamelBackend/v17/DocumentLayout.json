@@ -50,8 +50,7 @@
               "RelativeToolTip": "CamelBackend\\Controllers\\CamelController.cs",
               "ViewState": "AgIAAEwAAAAAAAAAAAAmwF8AAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-12T17:51:23.415Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-12T17:51:23.415Z"
             },
             {
               "$type": "Document",
@@ -61,7 +60,7 @@
               "RelativeDocumentMoniker": "CamelBackend\\Program.cs",
               "ToolTip": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Program.cs",
               "RelativeToolTip": "CamelBackend\\Program.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAAwFAAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAAwEgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-12T17:22:21.937Z",
               "EditorCaption": ""
@@ -75,8 +74,7 @@
               "ToolTip": "C:\\Users\\lacik\\Desktop\\repos\\apply-frontend-backend\\CamelBackend\\CamelBackend\\Resources\\SharedResource.resx",
               "RelativeToolTip": "CamelBackend\\Resources\\SharedResource.resx",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2026-02-12T17:50:05.014Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-12T17:50:05.014Z"
             },
             {
               "$type": "Document",
@@ -88,8 +86,7 @@
               "RelativeToolTip": "CamelBackend\\Repositories\\CamelRepository.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-12T17:37:16.43Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-12T17:37:16.43Z"
             },
             {
               "$type": "Document",
@@ -101,8 +98,7 @@
               "RelativeToolTip": "CamelBackend\\Services\\CamelService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-12T17:36:50.765Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-12T17:36:50.765Z"
             },
             {
               "$type": "Document",
@@ -114,8 +110,7 @@
               "RelativeToolTip": "CamelBackend\\Mapping\\CamelProfile.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-12T17:25:46.128Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-12T17:25:46.128Z"
             },
             {
               "$type": "Document",
@@ -127,8 +122,7 @@
               "RelativeToolTip": "CamelBackend\\DB\\AppDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-12T17:22:56.781Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-12T17:22:56.781Z"
             }
           ]
         }

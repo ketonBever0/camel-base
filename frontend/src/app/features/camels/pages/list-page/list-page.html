@@ -1,7 +1,6 @@
 <h2>Camels</h2>
-<form>
-  <div></div>
 
+<form [formGroup]="editForm" (ngSubmit)="submitEdit()">
   <table class="table table-stripped">
     <thead>
       <tr>
@@ -10,15 +9,34 @@
         <th scope="col" sortable="color">Color</th>
         <th scope="col">Humps Count</th>
         <th scope="col" sortable="lastFed">Last Fed</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       @for (c of camels$ | async; track c.id) {
         <tr>
-          <td scope="row">{{ c.name }}</td>
-          <td scope="row">{{ c.color || 'Not provided' }}</td>
-          <td scope="row">{{ c.humpCount }}</td>
-          <td scope="row">{{ c.lastFed || 'Never' }}</td>
+          @if (editingId() == c.id) {
+            <td><input class="form-control" formControlName="name" /></td>
+            <td><input class="form-control" formControlName="color" /></td>
+            <td><input class="form-control" formControlName="humpCount" type="number" /></td>
+            <td><input class="form-control" formControlName="lastFed" type="date" /></td>
+          } @else {
+            <td scope="row">{{ c.name }}</td>
+            <td scope="row">{{ c.color || 'Not provided' }}</td>
+            <td scope="row">{{ c.humpCount }}</td>
+            <td scope="row">{{ c.lastFed || 'Never' }}</td>
+          }
+          <td>
+            @if (editingId() == c.id) {
+              <button type="submit" class="btn btn-success" (click)="submitEdit()">Edit</button>
+              <button type="reset" class="btn btn-danger" (click)="stopEditing()">Cancel</button>
+            } @else {
+              <div class="camel-actions" [hidden]="editingId() != null && editingId() != c.id">
+                <button class="btn btn-warning" (click)="startEditing(c.id)">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+              </div>
+            }
+          </td>
         </tr>
       } @empty {
         <tr>

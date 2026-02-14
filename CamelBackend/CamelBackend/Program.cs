@@ -71,6 +71,7 @@ namespace CamelBackend
 
             app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
