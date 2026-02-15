@@ -69,6 +69,27 @@ namespace CamelBackend.Testing
         }
 
         [Fact]
+        public async Task PutCamelShouldUpdate()
+        {
+            var postDto = new { Name = "UpdateCamel", HumpCount = 1 };
+            var postRes = await _client.PostAsJsonAsync(_apiPrefix, postDto);
+
+            postRes.StatusCode.Should().Be(HttpStatusCode.Created);
+            var postCamel = await postRes.Content.ReadFromJsonAsync<Camel>();
+
+            postCamel.Color = "Yellow";
+            var putRes = await _client.PutAsJsonAsync(_apiPrefix + postCamel.Id, postCamel);
+            putRes.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var getRes = await _client.GetAsync(_apiPrefix + postCamel.Id);
+            var updatedCamel = await getRes.Content.ReadFromJsonAsync<Camel>();
+            updatedCamel.Color.Should().Be(postCamel.Color);
+
+
+        }
+
+
+        [Fact]
         public async Task DeleteShouldDelete()
         {
             var dto = new { Name = "DeleteCamel", HumpCount = 1 };
