@@ -54,9 +54,12 @@ namespace CamelBackend
             builder.Services.AddScoped<ICamelService, CamelService>();
             builder.Services.AddScoped<ICamelRepository, CamelRepository>();
 
-            builder.Services.AddDbContext<AppDbContext>(
-                options => options.UseSqlite("Data Source=./DB/app.db")
-            );
+            if (!builder.Environment.IsEnvironment("Testing"))
+            {
+                builder.Services.AddDbContext<AppDbContext>(
+                    options => options.UseSqlite("Data Source=./DB/app.db")
+                );
+            }
 
             //builder.Services.AddDbContext<AppDbContext>(
             //    options => options.UseInMemoryDatabase("TestDb")
@@ -134,7 +137,7 @@ namespace CamelBackend
                 {
                     return Results.ValidationProblem(errors);
                 }
-                
+
                 var camel = mapper.Map<Camel>(dto);
                 var created = await service.AddCamelAsync(camel);
                 return Results.Created($"{prefix}/{camel.Id}", created);
