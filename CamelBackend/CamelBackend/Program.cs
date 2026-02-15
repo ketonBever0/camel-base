@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using MiniValidation;
 using System.Globalization;
 
 namespace CamelBackend
@@ -91,7 +92,7 @@ namespace CamelBackend
                 db.Database.EnsureCreated();
             }
 
-            // Configure the HTTP request pipeline.
+            // Swagger & docs
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -104,6 +105,8 @@ namespace CamelBackend
 
             var prefix = "/api/camels";
 
+
+            // ENDPOINTS START
             app.MapGet(prefix, async (ICamelService service, IMapper mapper) =>
             {
                 var data = await service.GetAllCamelsAsync();
@@ -127,6 +130,11 @@ namespace CamelBackend
 
             app.MapPost(prefix, async (CamelCreateDto dto, ICamelService service, IMapper mapper) =>
             {
+                if (!MiniValidator.TryValidate(dto, out var errors))
+                {
+                    return Results.ValidationProblem(errors);
+                }
+                
                 var camel = mapper.Map<Camel>(dto);
                 var created = await service.AddCamelAsync(camel);
                 return Results.Created($"{prefix}/{camel.Id}", created);
@@ -158,7 +166,7 @@ namespace CamelBackend
                     return Results.NotFound();
                 }
             }).Produces(StatusCodes.Status200OK).Produces(StatusCodes.Status404NotFound);
-
+            // ENDPOINTS END
 
             app.Run();
         }

@@ -22,12 +22,13 @@ namespace CamelBackend.Features.Camels.Application.DTOs
     public class CamelCreateDto
     {
 
-        [Required]
+        [Required(ErrorMessage = "Name is required.")]
+        [MinLength(2, ErrorMessage = "Name must be at least 2 characters long.")]
         public string Name { get; set; }
 
         public string? Color { get; set; }
 
-        [AllowedValues(1, 2)]
+        [AllowedValues(1, 2, ErrorMessage = "Hump Count can be 1 or 2.")]
         public int HumpCount { get; set; }
 
         public DateTimeOffset? LastFed { get; set; }
@@ -35,12 +36,13 @@ namespace CamelBackend.Features.Camels.Application.DTOs
 
     public class CamelUpdateDto
     {
-        [Required]
+        [Required(ErrorMessage = "Name is required.")]
+        [MinLength(2, ErrorMessage = "Name must be at least 2 characters long.")]
         public string Name { get; set; }
 
         public string? Color { get; set; }
 
-        [AllowedValues(1, 2)]
+        [AllowedValues(1, 2, ErrorMessage = "Hump Count can be 1 or 2.")]
         public int HumpCount { get; set; }
 
         public DateTimeOffset? LastFed { get; set; }
