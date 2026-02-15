@@ -23,4 +23,12 @@ export class CamelService {
   addCamel(camel: Camel): Observable<Camel> {
     return this.http.post<Camel>(this.camelUrl, camel).pipe(catchError(this.handleError));
   }
+
+  updateCamel(camel: Camel): Observable<Camel> {
+    return this.http.put<Camel>(this.camelUrl + camel.id, camel).pipe(catchError(this.handleError));
+  }
+
+  deleteCamel(id: number): Observable<Camel> {
+    return this.http.delete<Camel>(this.camelUrl + id).pipe(catchError(this.handleError));
+  }
 }

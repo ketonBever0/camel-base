@@ -1,0 +1,12 @@
+<div class="toast-container">
+  @for (toast of ts.toasts(); track toast) {
+    <ngb-toast
+      class="toast"
+      [header]="toast.header"
+      [autohide]="true"
+      [delay]="toast.delay || 5000"
+      (hidden)="ts.remove(toast)"
+      >{{ toast.body }}</ngb-toast
+    >
+  }
+</div>

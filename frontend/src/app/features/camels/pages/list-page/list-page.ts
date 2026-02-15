@@ -1,28 +1,16 @@
-import { AsyncPipe } from '@angular/common';
-import {
-  Component,
-  OnInit,
-  signal,
-  Signal,
-  TemplateRef,
-  ViewChild,
-  WritableSignal,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { CamelService } from '@app/core/services/camel.service';
+import { AsyncPipe, DatePipe } from '@angular/common';
+import { Component, OnInit, signal, TemplateRef, ViewChild, WritableSignal } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CamelService } from '@core/services/camel.service';
 import { Camel } from '@models/camel';
 import { Observable } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ToastService } from '@core/services/toast.service';
+import { ConfirmService } from '@core/services/confirm.service';
 
 @Component({
   selector: 'app-list-page',
-  imports: [AsyncPipe, ReactiveFormsModule],
+  imports: [AsyncPipe, ReactiveFormsModule, DatePipe],
   templateUrl: './list-page.html',
   styleUrl: './list-page.scss',
 })
@@ -31,6 +19,8 @@ export class ListPage implements OnInit {
     protected readonly camelService: CamelService,
     protected readonly formBuilder: FormBuilder,
     private readonly modalService: NgbModal,
+    private readonly ts: ToastService,
+    private readonly confirmBox: ConfirmService,
   ) {
     this.camelForm = formBuilder.group({
       name: ['', Validators.required],
@@ -42,12 +32,16 @@ export class ListPage implements OnInit {
   }
 
   ngOnInit() {
+    this.loadCamels();
+  }
+
+  loadCamels() {
     this.camels$ = this.camelService.getCamels();
   }
 
-  @ViewChild('camelModal') camelModal!: TemplateRef<any>;
+  camelsPending = signal(false);
 
-  // camelsPending = signal(true);
+  @ViewChild('camelModal') camelModal!: TemplateRef<any>;
 
   camelForm: FormGroup;
 
@@ -55,8 +49,8 @@ export class ListPage implements OnInit {
 
   editingId: WritableSignal<number | null> = signal(null);
 
-  startEditing(c: Camel | null = null) {
-    if (c) this.editingId.set(c.id);
+  startEditing(c: Camel | null) {
+    this.editingId.set(c ? c.id : null);
 
     this.camelForm.patchValue({
       name: c ? c.name : '',
@@ -75,14 +69,59 @@ export class ListPage implements OnInit {
   }
 
   stopEditing() {
+    this.modalRef!.close();
     this.editingId.set(null);
   }
 
   submitEdit() {
-    this.stopEditing();
+    if (this.camelForm.valid) {
+      const payload: Camel = {
+        id: this.editingId() || 0,
+        name: this.camelForm.get('name')!.value,
+        color: this.camelForm.get('color')?.value,
+        humpCount: this.camelForm.get('humpCount')!.value,
+        lastFed: `${this.camelForm.get('lastFedDate')!.value}T${this.camelForm.get('lastFedTime')!.value}Z`,
+      };
+
+      const request$ = this.editingId()
+        ? this.camelService.updateCamel(payload)
+        : this.camelService.addCamel(payload);
+
+      request$.subscribe({
+        next: (c) => {
+          this.loadCamels();
+          this.ts.show('Success', `${c.name} ${this.editingId() ? 'edited' : 'added'}`);
+          this.stopEditing();
+          this.camelForm.reset();
+        },
+        error: (e) => {
+          console.error('Submit error', e);
+        },
+      });
+    } else {
+      this.ts.show('Form error', 'Missing data');
+    }
   }
 
+  modalRef: NgbModalRef | null = null;
+
   openModal() {
-    this.modalService.open(this.camelModal);
+    this.modalRef = this.modalService.open(this.camelModal);
+  }
+
+  deleteClick(id: number) {
+    this.confirmBox.confirm('Are you sure?').then((yes) => {
+      if (yes) {
+        this.camelService.deleteCamel(id).subscribe({
+          next: () => {
+            this.ts.show('Deleted', '');
+            this.loadCamels();
+          },
+          error: (e) => {
+            console.error('Delete error', e);
+          },
+        });
+      }
+    });
   }
 }

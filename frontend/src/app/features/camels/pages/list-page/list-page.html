@@ -11,28 +11,46 @@
       <th scope="col">Humps Count</th>
       <th scope="col" sortable="lastFed">Last Fed</th>
       <th scope="col" id="add-container">
-        <button class="btn btn-success" (click)="startEditing()">Add</button>
+        <button class="btn btn-success" (click)="startEditing(null)">Add</button>
       </th>
     </tr>
   </thead>
   <tbody>
-    @for (c of camels$ | async; track c.id) {
+    @if (camelsPending()) {
       <tr>
-        <td scope="row">{{ c.name }}</td>
-        <td scope="row">{{ c.color || 'Not provided' }}</td>
-        <td scope="row">{{ c.humpCount }}</td>
-        <td scope="row">{{ c.lastFed || 'Never' }}</td>
-        <td>
-          <div class="camel-actions">
-            <button class="btn btn-warning" (click)="startEditing(c)">Edit</button>
-            <button class="btn btn-danger">Delete</button>
+        <td colspan="5">
+          <div class="d-flex justify-content-evenly">
+            <div class="spinner-grow" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
           </div>
         </td>
       </tr>
-    } @empty {
-      <tr>
-        <td colspan="5" style="text-align: center">No camels.</td>
-      </tr>
+    } @else {
+      @for (c of camels$ | async; track c.id) {
+        <tr>
+          <td scope="row">{{ c.name }}</td>
+          <td scope="row">{{ c.color || 'Not provided' }}</td>
+          <td scope="row">{{ c.humpCount }}</td>
+          <td scope="row">{{ c.lastFed | date: 'yyyy. MM. dd. - HH:mm' }}</td>
+          <td>
+            <div class="camel-actions">
+              <button class="btn btn-warning" (click)="startEditing(c)">Edit</button>
+              <button class="btn btn-danger" (click)="deleteClick(c.id)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="5" class="text-center">No camels.</td>
+        </tr>
+      }
     }
   </tbody>
 
@@ -40,17 +58,36 @@
     <div class="modal-header">
       <h5 class="modal-title">{{ editingId() ? 'Edit Camel' : 'Create Camel' }}</h5>
     </div>
-    <form [formGroup]="camelForm" (ngSubmit)="submitEdit()">
+    <form [formGroup]="camelForm" (ngSubmit)="submitEdit()" class="camel-form">
       <div class="modal-body">
-        <input type="text" formControlName="name" />
-        <input type="text" formControlName="color" />
-        <select formControlName="humpCount">
-          <option [value]="null" disabled>Choose...</option>
-          <option [value]="1">1</option>
-          <option [value]="2">2</option>
-        </select>
-        <input type="date" formControlName="lastFedDate" />
-        <input type="time" formControlName="lastFedTime" />
+        <div>
+          <label for="name" class="form-label">Name</label>
+          <input id="name" class="form-control" type="text" formControlName="name" />
+        </div>
+        <div>
+          <label for="color" class="form-label">Color</label>
+          <input id="color" class="form-control" type="text" formControlName="color" />
+        </div>
+        <div>
+          <label for="humpCount" class="form-label">Hump Count</label>
+          <select id="humpCount" class="form-control" formControlName="humpCount">
+            <option [value]="null" disabled>Choose...</option>
+            <option [value]="1">1</option>
+            <option [value]="2">2</option>
+          </select>
+        </div>
+        <div>
+          <label for="lastFedDate" class="form-label">Name</label>
+          <div class="form-dates">
+            <input
+              id="lastFedDate"
+              class="form-control"
+              type="date"
+              formControlName="lastFedDate"
+            />
+            <input type="time" class="form-control" formControlName="lastFedTime" />
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-success">Save</button>

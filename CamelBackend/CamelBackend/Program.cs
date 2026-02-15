@@ -67,7 +67,20 @@ namespace CamelBackend
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
+
             var app = builder.Build();
+
+            app.UseCors("AllowSpecificOrigin");
 
             app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
@@ -124,7 +137,7 @@ namespace CamelBackend
                 mapper.Map(dto, camel);
 
                 await service.UpdateCamelAsync(camel);
-                return Results.Ok();
+                return Results.Ok(camel);
             });
 
             app.MapDelete(prefix + "/{id:int}", async (int id, ICamelService service) =>
