@@ -1,7 +1,6 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace CamelBackend.Models
+namespace CamelBackend.Features.Camels.Domain.Models
 {
     public class Camel
     {

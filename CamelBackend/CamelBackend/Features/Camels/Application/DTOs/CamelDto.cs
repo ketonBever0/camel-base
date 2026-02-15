@@ -1,7 +1,7 @@
 ﻿using CamelBackend.Localization;
 using System.ComponentModel.DataAnnotations;
 
-namespace CamelBackend.Models
+namespace CamelBackend.Features.Camels.Application.DTOs
 {
     public class CamelReadDto
     {

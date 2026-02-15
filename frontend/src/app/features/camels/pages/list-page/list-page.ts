@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '@core/services/toast.service';
 import { ConfirmService } from '@core/services/confirm.service';
+import { allowedHumpCountValidator } from '@features/camels/directives/allowed-hump-count.directive';
 
 @Component({
   selector: 'app-list-page',
@@ -23,9 +24,9 @@ export class ListPage implements OnInit {
     private readonly confirmBox: ConfirmService,
   ) {
     this.camelForm = formBuilder.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(2)]],
       color: [''],
-      humpCount: [null],
+      humpCount: [null, allowedHumpCountValidator()],
       lastFedDate: [new Date().toISOString().split('T')[0]],
       lastFedTime: [new Date().toISOString().split('T')[1]],
     });
@@ -77,8 +78,8 @@ export class ListPage implements OnInit {
     if (this.camelForm.valid) {
       const payload: Camel = {
         id: this.editingId() || 0,
-        name: this.camelForm.get('name')!.value,
-        color: this.camelForm.get('color')?.value,
+        name: this.camelForm.get('name')!.value.strip(),
+        color: this.camelForm.get('color')?.value.strip(),
         humpCount: this.camelForm.get('humpCount')!.value,
         lastFed: `${this.camelForm.get('lastFedDate')!.value}T${this.camelForm.get('lastFedTime')!.value}Z`,
       };
@@ -99,7 +100,15 @@ export class ListPage implements OnInit {
         },
       });
     } else {
-      this.ts.show('Form error', 'Missing data');
+      if (
+        this.camelForm.get('name')?.hasError('required') ||
+        this.camelForm.get('name')?.hasError('minlength')
+      ) {
+        this.ts.show('Form error', 'Name must be at least 2 characters long.');
+      }
+      if (this.camelForm.get('humpCount')?.hasError('invalidHumpCount')) {
+        this.ts.show('Form error', 'Only 1 and 2 are allowed for Hump Count.');
+      }
     }
   }
 

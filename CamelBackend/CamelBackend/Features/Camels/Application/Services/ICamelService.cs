@@ -1,14 +1,13 @@
-﻿using CamelBackend.Models;
+﻿using CamelBackend.Features.Camels.Domain.Models;
 
-namespace CamelBackend.Repositories
+namespace CamelBackend.Features.Camels.Application.Services
 {
-    public interface ICamelRepository
+    public interface ICamelService
     {
         Task<IEnumerable<Camel>> GetAllCamelsAsync();
         Task<Camel?> GetCamelByIdAsync(int id);
         Task<Camel> AddCamelAsync(Camel camel);
-        void UpdateCamel(Camel camel);
+        Task UpdateCamelAsync(Camel camel);
         Task DeleteCamelAsync(int id);
-        Task SaveAsync();
     }
 }

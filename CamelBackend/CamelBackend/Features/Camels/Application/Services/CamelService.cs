@@ -1,7 +1,7 @@
-﻿using CamelBackend.Models;
-using CamelBackend.Repositories;
+﻿using CamelBackend.Features.Camels.Domain.Models;
+using CamelBackend.Features.Camels.Infrastructure.Repositories;
 
-namespace CamelBackend.Services
+namespace CamelBackend.Features.Camels.Application.Services
 {
     public class CamelService(ICamelRepository repository) : ICamelService
     {

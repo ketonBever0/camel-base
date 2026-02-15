@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Camel } from '@models/camel';
 import { catchError, Observable, of, throwError } from 'rxjs';
-import { env } from 'src/env/env';
+import { env } from 'src/env/environment';
 
 @Injectable({
   providedIn: 'root',

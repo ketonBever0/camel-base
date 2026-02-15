@@ -1,4 +1,4 @@
-﻿using CamelBackend.Models;
+﻿using CamelBackend.Features.Camels.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CamelBackend.DB
@@ -12,6 +12,8 @@ namespace CamelBackend.DB
         protected AppDbContext()
         {
         }
+
+        
 
         public DbSet<Camel> Camels { get; set; }
 

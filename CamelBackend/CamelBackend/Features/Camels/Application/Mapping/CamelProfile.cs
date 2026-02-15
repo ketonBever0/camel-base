@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using CamelBackend.Models;
+using CamelBackend.Features.Camels.Application.DTOs;
+using CamelBackend.Features.Camels.Domain.Models;
 
-namespace CamelBackend.Mapping
+namespace CamelBackend.Features.Camels.Application.Mapping
 {
     public class CamelProfile: Profile
     {

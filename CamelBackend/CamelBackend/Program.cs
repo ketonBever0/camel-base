@@ -1,11 +1,12 @@
 using AutoMapper;
 using CamelBackend.DB;
+using CamelBackend.Features.Camels.Application.DTOs;
+using CamelBackend.Features.Camels.Application.Mapping;
+using CamelBackend.Features.Camels.Application.Services;
+using CamelBackend.Features.Camels.Application.Validators;
+using CamelBackend.Features.Camels.Domain.Models;
+using CamelBackend.Features.Camels.Infrastructure.Repositories;
 using CamelBackend.Localization;
-using CamelBackend.Mapping;
-using CamelBackend.Models;
-using CamelBackend.Repositories;
-using CamelBackend.Services;
-using CamelBackend.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Localization;
@@ -53,7 +54,7 @@ namespace CamelBackend
             builder.Services.AddScoped<ICamelRepository, CamelRepository>();
 
             builder.Services.AddDbContext<AppDbContext>(
-                options => options.UseSqlite("Data Source=./Data/app.sql")
+                options => options.UseSqlite("Data Source=./DB/app.db")
             );
 
             //builder.Services.AddDbContext<AppDbContext>(
@@ -84,6 +85,11 @@ namespace CamelBackend
 
             app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                db.Database.EnsureCreated();
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -103,7 +109,7 @@ namespace CamelBackend
                 var data = await service.GetAllCamelsAsync();
                 var camels = mapper.Map<List<CamelReadDto>>(data);
                 return Results.Ok(camels);
-            });
+            }).Produces(StatusCodes.Status200OK);
 
             app.MapGet(prefix + "/{id:int}", async (int id, ICamelService service, IMapper mapper) =>
             {
@@ -117,14 +123,14 @@ namespace CamelBackend
                 {
                     return Results.NotFound();
                 }
-            });
+            }).Produces(StatusCodes.Status200OK).Produces(StatusCodes.Status404NotFound);
 
             app.MapPost(prefix, async (CamelCreateDto dto, ICamelService service, IMapper mapper) =>
             {
                 var camel = mapper.Map<Camel>(dto);
                 var created = await service.AddCamelAsync(camel);
                 return Results.Created($"{prefix}/{camel.Id}", created);
-            });
+            }).Produces(StatusCodes.Status201Created).Produces(StatusCodes.Status400BadRequest);
 
             app.MapPut(prefix + "/{id:int}", async (int id, CamelUpdateDto dto, ICamelService service, IMapper mapper) =>
             {
@@ -138,7 +144,7 @@ namespace CamelBackend
 
                 await service.UpdateCamelAsync(camel);
                 return Results.Ok(camel);
-            });
+            }).Produces(StatusCodes.Status200OK).Produces(StatusCodes.Status404NotFound).Produces(StatusCodes.Status400BadRequest);
 
             app.MapDelete(prefix + "/{id:int}", async (int id, ICamelService service) =>
             {
@@ -151,7 +157,7 @@ namespace CamelBackend
                 {
                     return Results.NotFound();
                 }
-            });
+            }).Produces(StatusCodes.Status200OK).Produces(StatusCodes.Status404NotFound);
 
 
             app.Run();

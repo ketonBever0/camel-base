@@ -1,8 +1,8 @@
-﻿using CamelBackend.Localization;
-using CamelBackend.Models;
+﻿using CamelBackend.Features.Camels.Application.DTOs;
+using CamelBackend.Localization;
 using FluentValidation;
 
-namespace CamelBackend.Validators
+namespace CamelBackend.Features.Camels.Application.Validators
 {
     public class CamelCreateValidator : AbstractValidator<CamelCreateDto>
     {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using CamelBackend.Models;
-using CamelBackend.Services;
+using CamelBackend.Features.Camels.Application.DTOs;
+using CamelBackend.Features.Camels.Application.Services;
+using CamelBackend.Features.Camels.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading.Tasks;

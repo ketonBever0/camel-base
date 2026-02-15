@@ -1,8 +1,8 @@
 ﻿using CamelBackend.DB;
-using CamelBackend.Models;
+using CamelBackend.Features.Camels.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CamelBackend.Repositories
+namespace CamelBackend.Features.Camels.Infrastructure.Repositories
 {
     public class CamelRepository : ICamelRepository
     {
