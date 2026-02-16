@@ -22,12 +22,6 @@ describe('ListPage', () => {
     fixture.detectChanges();
   });
 
-  // beforeEach(() => {
-  //   TestBed.configureTestingModule({ declarations: [ListPage] });
-  //   fixture = TestBed.createComponent(ListPage);
-  //   component = fixture.componentInstance;
-  // });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -56,9 +50,6 @@ describe('ListPage', () => {
     expect(camelModal).toBeTruthy();
 
     expect(component.camelForm.valid).toBe(false);
-
-    const formName = component.camelForm.get('name')!.value;
-    const formHumpCount = component.camelForm.get('humpCount')!.value;
 
     component.camelForm.controls['name'].setValue('camel');
     component.camelForm.controls['humpCount'].setValue(1);

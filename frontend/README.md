@@ -1,59 +1,58 @@
-# CamelFrontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+# Teve nyilvántartó frontend
 
-## Development server
+## Futtatás
 
-To start a local development server, run:
+### Előfeltételek
 
-```bash
-ng serve
-```
+- Legyen NodeJS a gépen.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Fusson a backend.
 
-## Code scaffolding
+- Legyen létrehozva az `src` mappán belül egy `env` mappa, benne egy `environment.ts` fájllal, aminek tartalma:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+ ```
+ export const env = {
+   apiUrl: 'http://localhost:5276/api/',
+ };
+ ```
 
-```bash
-ng generate component component-name
-```
+ - A portszám változhat, ezt a backend által megnyitott Swagger UI címsorában lehet ellenőrizni
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Lépések
 
-```bash
-ng generate --help
-```
+1. Nyiss egy terminált a frontend mappára.
 
-## Building
+2. Parancs: `npm install`
 
-To build the project run:
+3. Parancs: `ng serve`
 
-```bash
-ng build
-```
+4. Nyisd meg a linket böngészőben.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Route-ok
 
-## Running unit tests
+- Főoldal
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+- Tevék oldal
 
-```bash
-ng test
-```
+- Listázás
 
-## Running end-to-end tests
+- Hozzáadás
 
-For end-to-end (e2e) testing, run:
+- Szerkesztés
 
-```bash
-ng e2e
-```
+- Törlés
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- Hozzáadás és Szerkesztés ugyanazt a formot használja
 
-## Additional Resources
+- Form validálódik, ha eltöröljük a releváns validátorokat a kódból, backendből jön a hiba.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Tesztek
+
+- Tevék oldal (mock-olva van, így független a backendtől)
+
+- Betöltődnek-e az adatok
+
+- Kitöltődik-e a form szerkesztéskor
+
+- Form validáció

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Modal } from 'bootstrap';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-confirm-box',
@@ -13,7 +14,7 @@ export class ConfirmBoxComponent {
 
   private resolver!: (value: boolean) => void;
 
-  open(message: string): Promise<boolean> {
+  open(message: string): Observable<boolean> {
     this.message = message;
 
     const modalEl = document.getElementById('confirmModal')!;
@@ -21,7 +22,12 @@ export class ConfirmBoxComponent {
 
     modal.show();
 
-    return new Promise<boolean>((resolve) => (this.resolver = resolve));
+    return new Observable<boolean>((sub) => {
+      this.resolver = (value) => {
+        sub.next(value);
+        sub.complete();
+      };
+    });
   }
 
   yes() {

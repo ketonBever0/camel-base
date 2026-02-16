@@ -5,5 +5,6 @@ export const camelRoutes: Routes = [
   {
     path: '',
     component: ListPage,
+    title: 'Camels - Camel Base',
   },
 ];

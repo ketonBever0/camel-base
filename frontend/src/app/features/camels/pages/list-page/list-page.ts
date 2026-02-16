@@ -58,8 +58,6 @@ export class ListPage implements OnInit {
     this.camels$ = this.camelService.getCamels();
   }
 
-  camelsPending = signal(false);
-
   @ViewChild('camelModal') camelModal!: TemplateRef<any>;
 
   camelForm: FormGroup;
@@ -125,17 +123,14 @@ export class ListPage implements OnInit {
           this.stopEditing();
           this.camelForm.reset();
         },
-        error: (resErr: HttpErrorResponse) => {
-          console.error('Submit error', resErr);
-          const validationErrors = resErr.error.errors;
+        error: (err: HttpErrorResponse) => {
+          const validationErrors = err.error.errors;
           if (validationErrors) {
             if (validationErrors.Name) {
-              // this.ts.show('Name error from server', validationErrors[0]);
+              this.ts.show('Name error from server', validationErrors.Name[0]);
             }
             if (validationErrors.HumpCount) {
-              setTimeout(() => {
-                this.ts.show('Hump Count error from server', validationErrors.HumpCount[0]);
-              });
+              this.ts.show('Hump Count error from server', validationErrors.HumpCount[0]);
             }
           }
         },
@@ -156,17 +151,15 @@ export class ListPage implements OnInit {
     this.modalRef = this.modalService.open(this.camelModal);
   }
 
-  deleteClick(id: number) {
-    from(this.confirmBox.confirm('Are you sure?'))
-      .pipe(
-        filter((yes) => yes),
-        switchMap(() => this.camelService.deleteCamel(id)),
-        tap(() => this.ts.show('Deleted', '')),
-        switchMap(() => this.camelService.getCamels()),
-      )
-      .subscribe(() => {
-        this.loadCamels();
-        this.cdRef.detectChanges();
-      });
+  deleteClick(c: Camel) {
+    this.confirmBox.confirm('Are you sure?').subscribe((yes) => {
+      if (yes) {
+        this.camelService.deleteCamel(c.id).subscribe(() => {
+          this.ts.show('Deleted', `${c.name} deleted`);
+          this.loadCamels();
+          this.cdRef.detectChanges();
+        });
+      }
+    });
   }
 }

@@ -15,8 +15,6 @@ import { ConfirmBoxComponent } from './shared/components/confirm-box/confirm-box
 export class App implements AfterViewInit {
   constructor(private confirmService: ConfirmService) {}
 
-  protected readonly title = signal('camel-frontend');
-
   @ViewChild('confirmModal') confirmModal!: ConfirmBoxComponent;
 
   ngAfterViewInit() {

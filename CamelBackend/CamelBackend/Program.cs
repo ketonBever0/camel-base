@@ -61,12 +61,7 @@ namespace CamelBackend
                 );
             }
 
-            //builder.Services.AddDbContext<AppDbContext>(
-            //    options => options.UseInMemoryDatabase("TestDb")
-            //);
-
             builder.Services.AddAutoMapper(cfg => { }, typeof(CamelProfile));
-            //builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

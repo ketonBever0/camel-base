@@ -11,7 +11,7 @@ export class ToastService {
   readonly toasts = this._toasts.asReadonly();
 
   show(header: string, body: string) {
-    this._toasts().push({ header, body });
+    this._toasts.update((prev) => [...prev, { header, body }]);
   }
 
   remove(toast: ToastInfo) {

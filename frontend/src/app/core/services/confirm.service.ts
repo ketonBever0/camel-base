@@ -11,7 +11,7 @@ export class ConfirmService {
     this.modal = modal;
   }
 
-  async confirm(message: string) {
-    return await this.modal.open(message);
+  confirm(message: string) {
+    return this.modal.open(message);
   }
 }
