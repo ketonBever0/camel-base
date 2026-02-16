@@ -11,7 +11,7 @@
       <th scope="col">Humps Count</th>
       <th scope="col" sortable="lastFed">Last Fed</th>
       <th scope="col" id="add-container">
-        <button id="form-open-btn" class="btn btn-success" (click)="startEditing(null)">Add</button>
+        <button id="add-camel-btn" class="btn btn-success" (click)="startEditing(null)">Add</button>
       </th>
     </tr>
   </thead>
@@ -34,14 +34,14 @@
       </tr>
     } @else {
       @for (c of camels$ | async; track c.id) {
-        <tr>
+        <tr class="camel-row">
           <td scope="row">{{ c.name }}</td>
           <td scope="row">{{ c.color || 'Not provided' }}</td>
           <td scope="row">{{ c.humpCount }}</td>
           <td scope="row">{{ c.lastFed | date: 'yyyy. MM. dd. - HH:mm' }}</td>
           <td>
             <div class="camel-actions">
-              <button class="btn btn-warning" (click)="startEditing(c)">Edit</button>
+              <button class="btn btn-warning edit-btn" (click)="startEditing(c)">Edit</button>
               <button class="btn btn-danger" (click)="deleteClick(c.id)">Delete</button>
             </div>
           </td>
@@ -62,7 +62,25 @@
       <div class="modal-body">
         <div>
           <label for="name" class="form-label">Name</label>
-          <input id="name" class="form-control" type="text" formControlName="name" />
+          <input
+            id="name"
+            class="form-control"
+            [ngClass]="{
+              'border-danger': camelName?.invalid && (camelName?.dirty || camelName?.touched),
+            }"
+            type="text"
+            formControlName="name"
+          />
+          <div class="text-danger">
+            @if (camelName?.invalid && (camelName?.dirty || camelName?.touched)) {
+              @if (camelName?.hasError('required')) {
+                <div>Name is required.</div>
+              }
+              @if (camelName?.hasError('minlength')) {
+                <div>Name must be at least 2 characters long.</div>
+              }
+            }
+          </div>
         </div>
         <div>
           <label for="color" class="form-label">Color</label>
@@ -70,15 +88,36 @@
         </div>
         <div>
           <label for="humpCount" class="form-label">Hump Count</label>
-          <select id="humpCount" class="form-control" formControlName="humpCount">
+          <select
+            id="humpCount"
+            class="form-control"
+            formControlName="humpCount"
+            [ngClass]="{
+              'border-danger':
+                camelHumpCount?.invalid && (camelHumpCount?.dirty || camelHumpCount?.touched),
+            }"
+          >
             <option [value]="null" disabled>Choose...</option>
             <option [value]="1">1</option>
             <option [value]="2">2</option>
           </select>
+          <div class="text-danger">
+            @if (camelHumpCount?.invalid && (camelHumpCount?.dirty || camelHumpCount?.touched)) {
+              @if (camelHumpCount?.hasError('required')) {
+                <div>Hump Count is required.</div>
+              }
+              @if (camelHumpCount?.hasError('invalidHumpCount')) {
+                <div>Hump Count can be only 1 or 2.</div>
+              }
+            }
+          </div>
         </div>
         <div>
-          <label for="lastFedDate" class="form-label">Name</label>
-          <div class="form-dates">
+          <div class="d-flex flex-row justify-content-between">
+            <label for="lastFedDate" class="form-label">Last fed</label>
+            <button type="button" class="btn btn-info" (click)="nowDateClick()">Now date</button>
+          </div>
+          <div class="form-dates d-flex flex-row gap-2">
             <input
               id="lastFedDate"
               class="form-control"

@@ -1,9 +1,17 @@
-import { AsyncPipe, DatePipe } from '@angular/common';
-import { Component, OnInit, signal, TemplateRef, ViewChild, WritableSignal } from '@angular/core';
+import { AsyncPipe, DatePipe, NgClass } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  signal,
+  TemplateRef,
+  ViewChild,
+  WritableSignal,
+} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CamelService } from '@core/services/camel.service';
 import { Camel } from '@models/camel';
-import { Observable } from 'rxjs';
+import { filter, from, Observable, switchMap, tap } from 'rxjs';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '@core/services/toast.service';
 import { ConfirmService } from '@core/services/confirm.service';
@@ -12,7 +20,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-list-page',
-  imports: [AsyncPipe, ReactiveFormsModule, DatePipe],
+  imports: [AsyncPipe, ReactiveFormsModule, DatePipe, NgClass],
   templateUrl: './list-page.html',
   styleUrl: './list-page.scss',
 })
@@ -23,14 +31,23 @@ export class ListPage implements OnInit {
     private readonly modalService: NgbModal,
     private readonly ts: ToastService,
     private readonly confirmBox: ConfirmService,
+    private readonly cdRef: ChangeDetectorRef,
   ) {
     this.camelForm = formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       color: [''],
-      humpCount: [null, allowedHumpCountValidator()],
-      lastFedDate: [new Date().toISOString().split('T')[0]],
-      lastFedTime: [new Date().toISOString().split('T')[1]],
+      humpCount: [null, [Validators.required, allowedHumpCountValidator()]],
+      lastFedDate: [new Date().toLocaleDateString().replaceAll('. ', '-').split('.')[0]],
+      lastFedTime: [new Date().toLocaleTimeString()],
     });
+  }
+
+  get camelName() {
+    return this.camelForm.get('name');
+  }
+
+  get camelHumpCount() {
+    return this.camelForm.get('humpCount');
   }
 
   ngOnInit() {
@@ -52,6 +69,9 @@ export class ListPage implements OnInit {
   editingId: WritableSignal<number | null> = signal(null);
 
   startEditing(c: Camel | null) {
+    if (!c) {
+      this.camelForm.reset();
+    }
     this.editingId.set(c ? c.id : null);
 
     this.camelForm.patchValue({
@@ -60,14 +80,23 @@ export class ListPage implements OnInit {
       humpCount: c ? c.humpCount : null,
       lastFedDate:
         c && c?.lastFed
-          ? new Date(c.lastFed).toISOString().split('T')[0]
-          : new Date().toISOString().split('T')[0],
+          ? new Date(c.lastFed).toLocaleDateString().replaceAll('. ', '-').split('.')[0]
+          : new Date().toLocaleDateString().replaceAll('. ', '-').split('.')[0],
       lastFedTime:
         c && c?.lastFed
-          ? new Date(c.lastFed).toISOString().split('T')[1].split('.')[0]
-          : new Date().toISOString().split('T')[1].split('.')[0],
+          ? new Date(c.lastFed).toLocaleTimeString()
+          : new Date().toLocaleTimeString(),
     });
     this.openModal();
+  }
+
+  nowDateClick() {
+    this.camelForm.controls['lastFedDate'].setValue(
+      new Date().toLocaleDateString().replaceAll('. ', '-').split('.')[0],
+    );
+    this.camelForm.controls['lastFedTime'].setValue(
+      new Date().toLocaleTimeString().replaceAll('. ', '-').split('.')[0],
+    );
   }
 
   stopEditing() {
@@ -79,9 +108,9 @@ export class ListPage implements OnInit {
     if (this.camelForm.valid) {
       const payload: Camel = {
         id: this.editingId() || 0,
-        name: this.camelForm.get('name')!.value || '',
+        name: this.camelName!.value || '',
         color: this.camelForm.get('color')?.value || '',
-        humpCount: this.camelForm.get('humpCount')!.value || 0,
+        humpCount: this.camelHumpCount!.value || 0,
         lastFed: `${this.camelForm.get('lastFedDate')!.value}T${this.camelForm.get('lastFedTime')!.value}Z`,
       };
 
@@ -112,13 +141,10 @@ export class ListPage implements OnInit {
         },
       });
     } else {
-      if (
-        this.camelForm.get('name')?.hasError('required') ||
-        this.camelForm.get('name')?.hasError('minlength')
-      ) {
+      if (this.camelName?.hasError('required') || this.camelName?.hasError('minlength')) {
         this.ts.show('Form error', 'Name must be at least 2 characters long.');
       }
-      if (this.camelForm.get('humpCount')?.hasError('invalidHumpCount')) {
+      if (this.camelHumpCount?.hasError('invalidHumpCount')) {
         this.ts.show('Form error', 'Only 1 and 2 are allowed for Hump Count.');
       }
     }
@@ -131,18 +157,16 @@ export class ListPage implements OnInit {
   }
 
   deleteClick(id: number) {
-    this.confirmBox.confirm('Are you sure?').then((yes) => {
-      if (yes) {
-        this.camelService.deleteCamel(id).subscribe({
-          next: () => {
-            this.ts.show('Deleted', '');
-            this.loadCamels();
-          },
-          error: (e) => {
-            console.error('Delete error', e);
-          },
-        });
-      }
-    });
+    from(this.confirmBox.confirm('Are you sure?'))
+      .pipe(
+        filter((yes) => yes),
+        switchMap(() => this.camelService.deleteCamel(id)),
+        tap(() => this.ts.show('Deleted', '')),
+        switchMap(() => this.camelService.getCamels()),
+      )
+      .subscribe(() => {
+        this.loadCamels();
+        this.cdRef.detectChanges();
+      });
   }
 }
