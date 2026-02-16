@@ -1,19 +1,20 @@
-# Teve nyilvántartó backend
+# Teve nyilvï¿½ntartï¿½ backend
 
 ## Fontos
 
-- A frontend app és a tesztelõ az alapértelmezett portjaikon fussanak Cors policy miatt
-	- Angular app: 4200
-	- Vitest: 63315
+- A frontend app az alapï¿½rtelmezett portjÃ¡n fusson Cors policy miatt
+  - Angular app: 4200
 
-## Funkciók
-- Tevék listázása, hozzáadása, módosítása és törlése
-- Adat validáció
+## Funkciï¿½k
+
+- Tevï¿½k listï¿½zï¿½sa, hozzï¿½adï¿½sa, mï¿½dosï¿½tï¿½sa ï¿½s tï¿½rlï¿½se
+- Adat validï¿½ciï¿½
 - Minimal API szerkezet
-- Swagger UI teszt és dokumentáció
+- Swagger UI teszt ï¿½s dokumentï¿½ciï¿½
 
 ## Tesztek (mock-olva)
-- Lekérdezés teszt
-- Hozzáadás teszt
-- Validációs teszt
-- Törlés teszt
+
+- Lekï¿½rdezï¿½s teszt
+- Hozzï¿½adï¿½s teszt
+- Validï¿½ciï¿½s teszt
+- Tï¿½rlï¿½s teszt
