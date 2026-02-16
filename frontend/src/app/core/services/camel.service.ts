@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Camel } from '@models/camel';
-import { catchError, Observable, of, throwError } from 'rxjs';
+import { catchError, Observable, of, shareReplay, throwError } from 'rxjs';
 import { env } from 'src/env/environment';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class CamelService {
   }
 
   getCamels(): Observable<Camel[]> {
-    return this.http.get<Camel[]>(this.camelUrl).pipe(catchError(this.handleError));
+    return this.http.get<Camel[]>(this.camelUrl).pipe(catchError(this.handleError), shareReplay(1));
   }
 
   addCamel(camel: Camel): Observable<Camel> {

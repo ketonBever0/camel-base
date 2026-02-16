@@ -8,6 +8,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastService } from '@core/services/toast.service';
 import { ConfirmService } from '@core/services/confirm.service';
 import { allowedHumpCountValidator } from '@features/camels/directives/allowed-hump-count.directive';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-list-page',
@@ -78,9 +79,9 @@ export class ListPage implements OnInit {
     if (this.camelForm.valid) {
       const payload: Camel = {
         id: this.editingId() || 0,
-        name: this.camelForm.get('name')!.value.strip(),
-        color: this.camelForm.get('color')?.value.strip(),
-        humpCount: this.camelForm.get('humpCount')!.value,
+        name: this.camelForm.get('name')!.value || '',
+        color: this.camelForm.get('color')?.value || '',
+        humpCount: this.camelForm.get('humpCount')!.value || 0,
         lastFed: `${this.camelForm.get('lastFedDate')!.value}T${this.camelForm.get('lastFedTime')!.value}Z`,
       };
 
@@ -95,8 +96,19 @@ export class ListPage implements OnInit {
           this.stopEditing();
           this.camelForm.reset();
         },
-        error: (e) => {
-          console.error('Submit error', e);
+        error: (resErr: HttpErrorResponse) => {
+          console.error('Submit error', resErr);
+          const validationErrors = resErr.error.errors;
+          if (validationErrors) {
+            if (validationErrors.Name) {
+              // this.ts.show('Name error from server', validationErrors[0]);
+            }
+            if (validationErrors.HumpCount) {
+              setTimeout(() => {
+                this.ts.show('Hump Count error from server', validationErrors.HumpCount[0]);
+              });
+            }
+          }
         },
       });
     } else {

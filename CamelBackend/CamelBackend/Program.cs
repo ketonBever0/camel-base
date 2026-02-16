@@ -79,6 +79,10 @@ namespace CamelBackend
                     policy.WithOrigins("http://localhost:4200")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
+
+                    policy.WithOrigins("http://localhost:63315")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
                 });
             });
 
